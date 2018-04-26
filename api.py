@@ -26,7 +26,7 @@ class PejsbookApi(object):
     def post_to_friends_wall(self, user_name, msg):
         return True
 
-    def send_private_message(self, user_name, msg):
+    def send_private_message(self, user_name, msg, timeout):
         return True
 
     def check_user_status(self, user_name):
