@@ -23,3 +23,14 @@ class TestRemovalFile(TestCase):
         exists_mock.assert_called_once_with(existing_dir)
         isdir_mock.assert_called_once_with(existing_dir)
 
+    @patch("os.remove")
+    @patch("os.path.exists", return_value=True)
+    @patch("os.path.isfile", return_value=True)
+    def test_that_existing_file_is_deleted(self, isfile_mock, exists_mock, remove_mock):
+        existing_file = "i_exist_therefore_delete.me"
+
+        remove_file(existing_file)
+
+        exists_mock.assert_called_once_with(existing_file)
+        isfile_mock.assert_called_once_with(existing_file)
+        remove_mock.assert_called_once_with(existing_file)
