@@ -5,9 +5,13 @@ from removal_service import remove_file
 
 
 class TestRemovalFile(TestCase):
-    def test_that_non_existing_file_is_not_deleted(self):
+    @patch("os.path.exists", return_value=True)
+    def test_that_non_existing_file_is_not_deleted(self, exists_mock):
         non_existing_file = "sadsadsa.exe"
+
         remove_file(non_existing_file)
+
+        exists_mock.assert_called_once_with(non_existing_file)
 
     @patch("os.path.exists", return_value=True)
     @patch("os.path.isdir", return_value=True)
@@ -18,3 +22,4 @@ class TestRemovalFile(TestCase):
 
         exists_mock.assert_called_once_with(existing_dir)
         isdir_mock.assert_called_once_with(existing_dir)
+
